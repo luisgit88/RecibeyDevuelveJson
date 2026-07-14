@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width">
+
+ <title>Servicio que recibe y devuelve JSON</title>
+
+</head>
+
+<body>
+
+ <h1>Servicio que recibe y devuelve JSON</h1>
+
+ <p><button id="boton">Envía y recibe JSON</button></p>
+
+ <script type="module">
+
+  import { consume } from "./libclienteweb/consume.js"
+  import { enviaJsonRecibeJson } from "./libclienteweb/enviaJsonRecibeJson.js"
+  import { muestraError } from "./libclienteweb/muestraError.js"
+
+  boton.addEventListener("click", procesaJson)
+
+  async function procesaJson() {
+   try {
+    const datos = {
+     saludo: "Hola",
+     nombre: "pp"
+    }
+    const respuesta = await consume(
+     enviaJsonRecibeJson(
+      "api/json.php", datos))
+    const json =
+     await respuesta.json()
+    alert(json)
+   } catch (error) {
+    muestraError(error)
+   }
+  }
+
+ </script>
+
+</body>
+
+</html>
